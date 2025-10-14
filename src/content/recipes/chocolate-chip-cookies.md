@@ -1,8 +1,10 @@
 ---
 title: Chocolate Chip Cookies
 description: Crispy edges, chewy middle.
-heroImage: /images/cookies.jpg
-tags: [dessert, baking]
+heroImage: '"https://sallysbakingaddiction.com/wp-content/uploads/2013/05/classic-chocolate-chip-cookies-1024x1536.jpg"'
+tags:
+  - dessert
+  - baking
 servings: 24
 prepTimeMins: 15
 cookTimeMins: 10
