@@ -17,20 +17,43 @@ content:
         sort: date
         order: desc
     fields:
-      - { name: title, label: Title, type: string, required: true }
-      - { name: description, label: Description, type: text }
-      - { name: heroImage, label: Hero image, type: string }
-      - { name: tags, label: Tags, type: string, list: true }
-      - { name: servings, label: Servings, type: number }
-      - { name: prepTimeMins, label: Prep time (mins), type: number }
-      - { name: cookTimeMins, label: Cook time (mins), type: number }
-      - {
-          name: ingredients,
-          label: Ingredients,
-          type: text,
-          list: true,
-          required: true,
-        }
-      - { name: steps, label: Steps, type: text, list: true, required: true }
-      - { name: published, label: Published, type: boolean, default: true }
-      - { name: date, label: Date, type: date }
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+      - name: heroImage
+        label: Hero Image (URL or local path)
+        type: string
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: servings
+        label: Servings
+        type: number
+      - name: prepTimeMins
+        label: Prep Time (mins)
+        type: number
+      - name: cookTimeMins
+        label: Cook Time (mins)
+        type: number
+      - name: ingredients
+        label: Ingredients
+        type: text
+        list: true
+        required: true
+      - name: steps
+        label: Steps
+        type: text
+        list: true
+        required: true
+      - name: published
+        label: Published
+        type: boolean
+        default: true
+      - name: date
+        label: Date
+        type: date
