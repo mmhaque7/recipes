@@ -1,0 +1,44 @@
+---
+import { getCollection, getEntryBySlug } from "astro:content";
+
+export async function getStaticPaths() {
+  const recipes = await getCollection(
+    "recipes",
+    ({ data }) => data.published !== false
+  );
+  return recipes.map((r) => ({
+    params: { slug: r.slug ?? r.slug ?? r.id },
+    props: { id: r.id },
+  }));
+}
+
+const { id } = Astro.props;
+const entry = await getEntryBySlug("recipes", id);
+const { data, body } = await entry.render();
+---
+
+<html>
+  <head><title>{data.title}</title></head>
+  <body>
+    {data.heroImage && <img src={data.heroImage} alt={data.title} />}
+    <h1>{data.title}</h1>
+    {data.description && <p>{data.description}</p>}
+    <p><strong>Servings:</strong> {data.servings ?? "—"}</p>
+    <p>
+      <strong>Time:</strong>
+      {(data.prepTimeMins ?? 0) + (data.cookTimeMins ?? 0)} mins
+    </p>
+
+    <h2>Ingredients</h2>
+    <ul>
+      {data.ingredients.map((i) => <li>{i}</li>)}
+    </ul>
+
+    <h2>Steps</h2>
+    <ol>
+      {data.steps.map((s) => <li>{s}</li>)}
+    </ol>
+
+    <article>{body}</article>
+  </body>
+</html>
