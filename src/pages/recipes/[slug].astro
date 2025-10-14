@@ -1,24 +1,30 @@
 ---
-import { getCollection, getEntryBySlug } from "astro:content";
+import { getCollection, getEntry, type CollectionEntry } from "astro:content";
+
+type RecipeData = CollectionEntry<"recipes">["data"];
 
 export async function getStaticPaths() {
   const recipes = await getCollection(
     "recipes",
-    ({ data }) => data.published !== false
+    ({ data }: { data: RecipeData }) => data.published !== false
   );
-  return recipes.map((r) => ({
-    params: { slug: r.slug ?? r.slug ?? r.id },
-    props: { id: r.id },
-  }));
+  return recipes.map((r) => ({ params: { slug: r.slug } }));
 }
 
-const { id } = Astro.props;
-const entry = await getEntryBySlug("recipes", id);
-const { data, body } = await entry.render();
+const { slug } = Astro.params!;
+const entry = await getEntry("recipes", slug!);
+if (!entry) return Astro.redirect("/404");
+
+const { Content } = await entry.render();
+const data: RecipeData = entry.data;
 ---
 
-<html>
-  <head><title>{data.title}</title></head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{data.title}</title>
+    <meta name="description" content={data.description ?? ""} />
+  </head>
   <body>
     {data.heroImage && <img src={data.heroImage} alt={data.title} />}
     <h1>{data.title}</h1>
@@ -28,17 +34,16 @@ const { data, body } = await entry.render();
       <strong>Time:</strong>
       {(data.prepTimeMins ?? 0) + (data.cookTimeMins ?? 0)} mins
     </p>
-
     <h2>Ingredients</h2>
     <ul>
-      {data.ingredients.map((i) => <li>{i}</li>)}
+      {data.ingredients?.map((i: string) => <li>{i}</li>)}
     </ul>
-
     <h2>Steps</h2>
     <ol>
-      {data.steps.map((s) => <li>{s}</li>)}
+      {data.steps?.map((s: string) => <li>{s}</li>)}
     </ol>
-
-    <article>{body}</article>
+    <article>
+      <Content />
+    </article>
   </body>
 </html>

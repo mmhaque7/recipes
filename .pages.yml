@@ -19,7 +19,7 @@ content:
     fields:
       - { name: title, label: Title, type: string, required: true }
       - { name: description, label: Description, type: text }
-      - { name: heroImage, label: Hero image, type: image, path: /images }
+      - { name: heroImage, label: Hero image, type: string }
       - { name: tags, label: Tags, type: string, list: true }
       - { name: servings, label: Servings, type: number }
       - { name: prepTimeMins, label: Prep time (mins), type: number }

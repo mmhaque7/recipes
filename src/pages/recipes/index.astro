@@ -1,25 +1,31 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
+type Recipe = CollectionEntry<"recipes">;
+
 const recipes = await getCollection(
   "recipes",
-  ({ data }) => data.published !== false
+  ({ data }: { data: Recipe["data"] }) => data.published !== false
+);
+const sorted = [...recipes].sort((a: Recipe, b: Recipe) =>
+  a.data.title.localeCompare(b.data.title)
 );
 ---
 
-<html>
-  <head><title>Recipes</title></head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Recipes</title>
+  </head>
   <body>
     <h1>All Recipes</h1>
     <ul>
       {
-        recipes
-          .sort((a, b) => (a.data.title > a.data.title ? 1 : -1))
-          .map((r) => (
-            <li>
-              <a href={`/recipes/${r.slug ?? r.id}/`}>{r.data.title}</a>
-              {r.data.tags?.length ? ` — ${r.data.tags.join(", ")}` : ""}
-            </li>
-          ))
+        sorted.map((r: Recipe) => (
+          <li>
+            <a href={`/recipes/${r.slug}/`}>{r.data.title}</a>
+            {r.data.tags?.length ? ` — ${r.data.tags.join(", ")}` : ""}
+          </li>
+        ))
       }
     </ul>
   </body>
