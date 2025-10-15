@@ -4,7 +4,7 @@ description: Here is my recipe for dhal based on my many experiences cooking
   with my friends over the years. We love this served over freshly made basmati
   rice. Don't skimp on the caramelized onions and garlic — it totally makes this
   recipe amazing!
-heroImage: '"https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2023%2F01%2F21%2F3933546-bengali-dhal-lea86-4x3-1.jpg&q=60&c=sc&poi=auto&orient=true&h=512"'
+heroImage: https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2023%2F01%2F21%2F3933546-bengali-dhal-lea86-4x3-1.jpg&q=60&c=sc&poi=auto&orient=true&h=512
 tags:
   - Bengali
   - Bangladesh
