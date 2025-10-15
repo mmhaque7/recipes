@@ -1,5 +1,9 @@
 ---
 import "../styles/global.css";
+
+// Pull optional title and description from page frontmatter
+const { title = "Recipes", description = "Delicious recipes made simple." } =
+  Astro.props;
 ---
 
 <!doctype html>
@@ -9,9 +13,27 @@ import "../styles/global.css";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Recipes</title>
+
+    <!-- Dynamic SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph (for social sharing) -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.origin} />
+    <meta property="og:image" content="/og-image.jpg" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
   </head>
-  <body>
+
+  <body
+    class="bg-neutral-50 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
+  >
     <slot />
   </body>
 </html>

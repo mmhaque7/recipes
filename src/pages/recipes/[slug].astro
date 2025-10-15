@@ -1,5 +1,7 @@
 ---
 import { getCollection, getEntry, type CollectionEntry } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import { CardTitle } from "@/components/ui/card";
 
 type RecipeData = CollectionEntry<"recipes">["data"];
 
@@ -17,33 +19,89 @@ if (!entry) return Astro.redirect("/404");
 
 const { Content } = await entry.render();
 const data: RecipeData = entry.data;
+const totalMins = (data.prepTimeMins ?? 0) + (data.cookTimeMins ?? 0);
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>{data.title}</title>
-    <meta name="description" content={data.description ?? ""} />
-  </head>
-  <body>
-    {data.heroImage && <img src={data.heroImage} alt={data.title} />}
-    <h1>{data.title}</h1>
-    {data.description && <p>{data.description}</p>}
-    <p><strong>Servings:</strong> {data.servings ?? "—"}</p>
-    <p>
-      <strong>Time:</strong>
-      {(data.prepTimeMins ?? 0) + (data.cookTimeMins ?? 0)} mins
-    </p>
-    <h2>Ingredients</h2>
-    <ul>
-      {data.ingredients?.map((i: string) => <li>{i}</li>)}
-    </ul>
-    <h2>Steps</h2>
-    <ol>
-      {data.steps?.map((s: string) => <li>{s}</li>)}
-    </ol>
-    <article>
-      <Content />
-    </article>
-  </body>
-</html>
+<Layout title={data.title} description={data.description}>
+  <main
+    class="mx-auto max-w-4xl px-6 py-12 text-neutral-800 dark:text-neutral-100"
+  >
+    {
+      data.heroImage && (
+        <img
+          src={data.heroImage}
+          alt={data.title}
+          class="mb-8 w-full rounded-xl border border-neutral-200 object-cover shadow-sm dark:border-neutral-700"
+        />
+      )
+    }
+
+    <h1 class="text-4xl font-semibold tracking-tight">{data.title}</h1>
+
+    {
+      data.description && (
+        <p class="mt-2 text-lg text-neutral-600 dark:text-neutral-400">
+          {data.description}
+        </p>
+      )
+    }
+
+    <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <div
+        class="rounded-lg border border-neutral-200 bg-white/70 p-4 shadow-sm dark:border-neutral-700 dark:bg-neutral-800/60"
+      >
+        <p class="text-xs uppercase text-neutral-500">Servings</p>
+        <p class="mt-1 text-lg font-medium">{data.servings ?? "—"}</p>
+      </div>
+      <div
+        class="rounded-lg border border-neutral-200 bg-white/70 p-4 shadow-sm dark:border-neutral-700 dark:bg-neutral-800/60"
+      >
+        <p class="text-xs uppercase text-neutral-500">Prep</p>
+        <p class="mt-1 text-lg font-medium">{data.prepTimeMins ?? 0} mins</p>
+      </div>
+      <div
+        class="rounded-lg border border-neutral-200 bg-white/70 p-4 shadow-sm dark:border-neutral-700 dark:bg-neutral-800/60"
+      >
+        <p class="text-xs uppercase text-neutral-500">Cook</p>
+        <p class="mt-1 text-lg font-medium">{data.cookTimeMins ?? 0} mins</p>
+      </div>
+      <div
+        class="rounded-lg border border-neutral-200 bg-white/70 p-4 shadow-sm dark:border-neutral-700 dark:bg-neutral-800/60"
+      >
+        <p class="text-xs uppercase text-neutral-500">Total</p>
+        <p class="mt-1 text-lg font-medium">{totalMins} mins</p>
+      </div>
+    </div>
+
+    <section class="mt-12 grid gap-10 md:grid-cols-3">
+      <aside class="md:col-span-1">
+        <h2 class="mb-3 text-lg font-semibold tracking-tight">Ingredients</h2>
+        <ul class="space-y-2 text-neutral-700 dark:text-neutral-300">
+          {
+            data.ingredients?.map((i: string) => (
+              <li class="flex items-start gap-2">
+                <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-neutral-400 dark:bg-neutral-500" />
+                {i}
+              </li>
+            ))
+          }
+        </ul>
+      </aside>
+
+      <div class="md:col-span-2 space-y-10">
+        <div>
+          <h2 class="mb-3 text-lg font-semibold tracking-tight">Steps</h2>
+          <ol
+            class="list-decimal space-y-4 pl-6 text-neutral-700 dark:text-neutral-300"
+          >
+            {data.steps?.map((s: string) => <li>{s}</li>)}
+          </ol>
+        </div>
+
+        <article class="prose prose-neutral max-w-none dark:prose-invert">
+          <Content />
+        </article>
+      </div>
+    </section>
+  </main>
+</Layout>

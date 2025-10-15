@@ -1,32 +1,33 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
-type Recipe = CollectionEntry<"recipes">;
-
+import { getCollection } from "astro:content";
+import RecipeCard from "@/components/RecipeCard.astro";
 const recipes = await getCollection(
   "recipes",
-  ({ data }: { data: Recipe["data"] }) => data.published !== false
+  ({ data }) => data.published !== false
 );
-const sorted = [...recipes].sort((a: Recipe, b: Recipe) =>
-  a.data.title.localeCompare(b.data.title)
-);
+
+import Layout from "@/layouts/Layout.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Recipes</title>
-  </head>
-  <body>
-    <h1>All Recipes</h1>
-    <ul>
+<Layout>
+  <section class="bg-gray-50 text-gray-900">
+    <main
+      class="max-w-6xl mx-auto p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
       {
-        sorted.map((r: Recipe) => (
-          <li>
-            <a href={`/recipes/${r.slug}/`}>{r.data.title}</a>
-            {r.data.tags?.length ? ` — ${r.data.tags.join(", ")}` : ""}
-          </li>
+        recipes.map((r) => (
+          <RecipeCard
+            title={r.data.title}
+            description={r.data.description}
+            heroImage={r.data.heroImage}
+            slug={r.slug}
+            prepTimeMins={r.data.prepTimeMins}
+            cookTimeMins={r.data.cookTimeMins}
+            totalTimeMins={r.data.totalTimeMins}
+            servings={r.data.servings}
+          />
         ))
       }
-    </ul>
-  </body>
-</html>
+    </main>
+  </section>
+</Layout>
