@@ -119,7 +119,6 @@
   }
 }
 
-/* --- neutral layout + components (token-aware) --- */
 :root {
   --page-max: 72rem;
 } /* ~1152px */
@@ -137,24 +136,21 @@
   @apply text-sm text-muted-foreground;
 }
 
-/* Card (uses your card tokens) */
 .card {
   @apply bg-card text-card-foreground border border-border rounded-xl shadow-sm hover:shadow-md transition-shadow;
 }
 .card > img {
   @apply w-full object-cover;
-  aspect-ratio: 16 / 9; /* consistent thumb height */
+  aspect-ratio: 16 / 9;
 }
 .card-body {
   @apply p-4;
 }
 
-/* Links (neutral, unobtrusive) */
 .link {
   @apply text-foreground/90 hover:text-foreground underline-offset-4 hover:underline;
 }
 
-/* Inputs (use your input/border/ring tokens) */
 .input {
   @apply w-full rounded-md border border-input bg-background text-sm text-foreground
          placeholder-muted-foreground/80
@@ -163,7 +159,6 @@
   padding: 0.625rem 0.75rem; /* 10px 12px */
 }
 
-/* Small helper for clamping without plugin (optional) */
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
