@@ -87,4 +87,5 @@ steps:
   - " Spread rice mixture onto a serving tray. Top with meat and seafood
     mixture. "
 published: true
+date: 2025-10-15
 ---
