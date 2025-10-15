@@ -6,7 +6,7 @@ const recipes = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
-    heroImage: z.string().optional(), // keep as string if you store in /public
+    heroImage: z.string().optional(), 
     tags: z.array(z.string()).optional().default([]),
 
     servings: z.coerce.number().int().optional(),
@@ -17,7 +17,7 @@ const recipes = defineCollection({
     steps: z.array(z.string()).optional().default([]),
 
     published: z.coerce.boolean().default(true),
-    date: z.coerce.date().optional(), // accepts "2025-10-14" too
+    date: z.coerce.date().optional(), 
   }),
 });
 
