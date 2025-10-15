@@ -1,7 +1,7 @@
 ---
 title: Chocolate Chip Cookies
 description: Crispy edges, chewy middle.
-heroImage: '"https://sallysbakingaddiction.com/wp-content/uploads/2013/05/classic-chocolate-chip-cookies-1024x1536.jpg"'
+heroImage: https://sallysbakingaddiction.com/wp-content/uploads/2013/05/classic-chocolate-chip-cookies-1024x1536.jpg
 tags:
   - dessert
   - baking
