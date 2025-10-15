@@ -118,3 +118,55 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* --- neutral layout + components (token-aware) --- */
+:root {
+  --page-max: 72rem;
+} /* ~1152px */
+
+.container {
+  max-width: var(--page-max);
+  @apply mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Headings & subtle text */
+.h1 {
+  @apply text-2xl font-semibold tracking-tight text-foreground;
+}
+.muted {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Card (uses your card tokens) */
+.card {
+  @apply bg-card text-card-foreground border border-border rounded-xl shadow-sm hover:shadow-md transition-shadow;
+}
+.card > img {
+  @apply w-full object-cover;
+  aspect-ratio: 16 / 9; /* consistent thumb height */
+}
+.card-body {
+  @apply p-4;
+}
+
+/* Links (neutral, unobtrusive) */
+.link {
+  @apply text-foreground/90 hover:text-foreground underline-offset-4 hover:underline;
+}
+
+/* Inputs (use your input/border/ring tokens) */
+.input {
+  @apply w-full rounded-md border border-input bg-background text-sm text-foreground
+         placeholder-muted-foreground/80
+         focus:outline-none focus:ring-2 focus:ring-ring focus:border-border
+         transition-shadow;
+  padding: 0.625rem 0.75rem; /* 10px 12px */
+}
+
+/* Small helper for clamping without plugin (optional) */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}

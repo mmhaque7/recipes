@@ -1,0 +1,39 @@
+---
+import { Button } from "@/components/ui/button";
+import { Search } from "lucide-react";
+
+const currentUrl = Astro.url;
+const currentQuery = currentUrl.searchParams.get("q") ?? "";
+---
+
+<header class="border-b bg-white shadow-sm">
+  <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+    <!-- Logo / Brand -->
+    <a href="/" class="text-xl font-bold flex items-center gap-2">
+      🍳 <span>My Recipe App</span>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="hidden sm:flex gap-6 text-sm font-medium text-gray-700">
+      <a href="/" class="hover:text-black">Home</a>
+      <a href="/recipes" class="hover:text-black">Recipes</a>
+    </nav>
+
+    <!-- Search -->
+    <form action="/search" method="get" class="relative w-64">
+      <input
+        type="text"
+        name="q"
+        placeholder="Search recipes..."
+        class="pl-8 pr-3 py-2 border rounded-md w-full"
+      />
+      <button type="submit" class="absolute left-2 top-2.5 text-gray-500">
+        🔍
+      </button>
+    </form>
+    <!-- Mobile Menu Placeholder (optional) -->
+    <div class="sm:hidden">
+      <Button variant="outline" size="sm">☰</Button>
+    </div>
+  </div>
+</header>
