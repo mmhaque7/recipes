@@ -40,6 +40,9 @@ content:
       - name: cookTimeMins
         label: Cook Time (mins)
         type: number
+      - name: totalTimeMins
+        label: Total Time (mins)
+        type: number
       - name: ingredients
         label: Ingredients
         type: text

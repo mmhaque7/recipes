@@ -12,7 +12,7 @@ const recipes = defineCollection({
     servings: z.coerce.number().int().optional(),
     prepTimeMins: z.coerce.number().int().optional(),
     cookTimeMins: z.coerce.number().int().optional(),
-
+    totalTimeMins: z.number().int().optional(),
     ingredients: z.array(z.string()).optional().default([]),
     steps: z.array(z.string()).optional().default([]),
 

@@ -3,8 +3,31 @@ import Layout from "../layouts/Layout.astro";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
+import { getCollection } from "astro:content";
+import RecipeCard from "@/components/RecipeCard.astro";
+
+const recipes = await getCollection(
+  "recipes",
+  ({ data }) => data.published !== false
+);
 ---
 
 <Layout>
-  <h1>Hello</h1>
+  <main class="max-w-6xl mx-auto p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {
+      recipes.map((r) => (
+        <RecipeCard
+          title={r.data.title}
+          description={r.data.description}
+          heroImage={r.data.heroImage}
+          slug={r.slug}
+          prepTimeMins={r.data.prepTimeMins}
+          cookTimeMins={r.data.cookTimeMins}
+          totalTimeMins={r.data.totalTimeMins}
+          servings={r.data.servings}
+        />
+      ))
+    }
+  </main>
 </Layout>
