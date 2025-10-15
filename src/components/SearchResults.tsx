@@ -81,12 +81,12 @@ export default function InstantSearch({
     : "Search results";
 
   return (
-    <div className="container space-y-6">
+    <div className="container space-y-6 mt-10">
       {/* Search bar */}
       <div className="relative sm:max-w-md">
         <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500" />
         <input
-          className="input pl-9"
+          className="input pl-10 pt-1 pb-1 pr-4 w-full rounded-md border bg-background text-foreground placeholder:text-muted-foreground transition-shadow focus:shadow-md focus:ring-2 focus:ring-primary/50 focus:outline-none"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search recipes..."
